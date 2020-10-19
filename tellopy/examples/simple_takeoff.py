@@ -1,5 +1,5 @@
 from time import sleep
-import tellopy
+import TelloPy/tellopy/_internal/tellopy
 
 
 def handler(event, sender, data, **args):
