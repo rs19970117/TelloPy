@@ -18,8 +18,7 @@ Controls:
   (zoomed-in widescreen or high FOV 4:3)
 """
 
-import time
-import sys
+
 import tellopy
 import pygame
 import pygame.display

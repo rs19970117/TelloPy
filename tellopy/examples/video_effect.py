@@ -53,3 +53,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+def take_picture(drone, speed):
+    if speed == 0:
+        return
+    drone.take_picture()
+    print("done")
