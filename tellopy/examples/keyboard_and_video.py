@@ -221,54 +221,54 @@ def main():
     global font
     font = pygame.font.SysFont("dejavusansmono", 32)
 
-    global wid
-    if 'window' in pygame.display.get_wm_info():
-        wid = pygame.display.get_wm_info()['window']
-    print("Tello video WID:", wid)
+    # global wid
+    # if 'window' in pygame.display.get_wm_info():
+    #     wid = pygame.display.get_wm_info()['window']
+    # print("Tello video WID:", wid)
 
-    drone = tellopy.Tello()
-    drone.connect()
-    drone.start_video()
-    drone.subscribe(drone.EVENT_FLIGHT_DATA, flightDataHandler)
-    drone.subscribe(drone.EVENT_VIDEO_FRAME, videoFrameHandler)
-    drone.subscribe(drone.EVENT_FILE_RECEIVED, handleFileReceived)
-    speed = 30
+    # drone = tellopy.Tello()
+    # drone.connect()
+    # drone.start_video()
+    # drone.subscribe(drone.EVENT_FLIGHT_DATA, flightDataHandler)
+    # drone.subscribe(drone.EVENT_VIDEO_FRAME, videoFrameHandler)
+    # drone.subscribe(drone.EVENT_FILE_RECEIVED, handleFileReceived)
+    # speed = 30
 
-    try:
-        while 1:
-            time.sleep(0.01)  # loop with pygame.event.get() is too mush tight w/o some sleep
-            for e in pygame.event.get():
-                # WASD for movement
-                if e.type == pygame.locals.KEYDOWN:
-                    print('+' + pygame.key.name(e.key))
-                    keyname = pygame.key.name(e.key)
-                    if keyname == 'escape':
-                        drone.quit()
-                        exit(0)
-                    if keyname in controls:
-                        key_handler = controls[keyname]
-                        if type(key_handler) == str:
-                            getattr(drone, key_handler)(speed)
-                        else:
-                            key_handler(drone, speed)
+    # try:
+    #     while 1:
+    #         time.sleep(0.01)  # loop with pygame.event.get() is too mush tight w/o some sleep
+    #         for e in pygame.event.get():
+    #             # WASD for movement
+    #             if e.type == pygame.locals.KEYDOWN:
+    #                 print('+' + pygame.key.name(e.key))
+    #                 keyname = pygame.key.name(e.key)
+    #                 if keyname == 'escape':
+    #                     drone.quit()
+    #                     exit(0)
+    #                 if keyname in controls:
+    #                     key_handler = controls[keyname]
+    #                     if type(key_handler) == str:
+    #                         getattr(drone, key_handler)(speed)
+    #                     else:
+    #                         key_handler(drone, speed)
 
-                elif e.type == pygame.locals.KEYUP:
-                    print('-' + pygame.key.name(e.key))
-                    keyname = pygame.key.name(e.key)
-                    if keyname in controls:
-                        key_handler = controls[keyname]
-                        if type(key_handler) == str:
-                            getattr(drone, key_handler)(0)
-                        else:
-                            key_handler(drone, 0)
-    except e:
-        print(str(e))
-    finally:
-        print('Shutting down connection to drone...')
-        if video_recorder:
-            toggle_recording(drone, 1)
-        drone.quit()
-        exit(1)
+    #             elif e.type == pygame.locals.KEYUP:
+    #                 print('-' + pygame.key.name(e.key))
+    #                 keyname = pygame.key.name(e.key)
+    #                 if keyname in controls:
+    #                     key_handler = controls[keyname]
+    #                     if type(key_handler) == str:
+    #                         getattr(drone, key_handler)(0)
+    #                     else:
+    #                         key_handler(drone, 0)
+    # except e:
+    #     print(str(e))
+    # finally:
+    #     print('Shutting down connection to drone...')
+    #     if video_recorder:
+    #         toggle_recording(drone, 1)
+    #     drone.quit()
+    #     exit(1)
 
 if __name__ == '__main__':
     main()
